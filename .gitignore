@@ -1,0 +1,16 @@
+# Ignora tutto
+*
+
+# Ma permetti le directory (necessario per tracciare file .zip nelle sottodirectory)
+!*/
+
+# Escludi directory specifiche anche se contengono file permessi
+/data_analysis_old/
+/sample_per_rama/
+
+# Permetti i file .zip
+!*.zip
+!*.ipynb
+
+# Permetti i dati sperimentali
+!data/experiment/**
