@@ -4,9 +4,11 @@
 # Ma permetti le directory (necessario per tracciare file .zip nelle sottodirectory)
 !*/
 
-# Escludi directory specifiche anche se contengono file permessi
+# Cartelle locali di lavoro, fuori dal repository
+/old_repo/
 /data_analysis_old/
 /sample_per_rama/
+/steering/
 
 # Permetti i file .zip
 !*.zip
@@ -14,3 +16,16 @@
 
 # Permetti i dati sperimentali
 !data/experiment/**
+
+# Reproducibility package: codice, figure e risultati
+!/data_analysis/**/*.py
+!/data_analysis/**/*.md
+!/data_analysis/figures/**/*.pdf
+!/data_analysis/figures/**/*.png
+!/data_analysis/results/**/*.csv
+!/data_analysis/results/**/*.json
+
+# Dati pesanti del package (~850 MB): per ora fuori dal repository.
+# Per caricarli su GitHub via git-lfs, commentare queste due righe.
+/data_analysis/data/
+/data_analysis/models/
