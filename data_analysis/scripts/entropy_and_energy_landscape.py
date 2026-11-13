@@ -553,7 +553,7 @@ plt.axvspan(0.60, 0.65, color='gray', alpha=0.15, zorder=0)
 plt.yscale('log')
 
 # Legend configuration
-plt.legend(prop={"size": 28, "weight": "normal"}, frameon=False, fancybox=False, shadow=False,
+plt.legend(prop={"size": 30, "weight": "normal"}, frameon=False, fancybox=False, shadow=False,
            framealpha=0.95, loc='best', borderpad=1, handlelength=2.5)
 
 # Grid and tick styling
@@ -1437,7 +1437,7 @@ plt.rcParams.update({
 })
 
 TEXT_COLOR = "#2F2F2F"
-PANEL_LABEL_SIZE = 40   # Size of the "A" / "B" panel letters
+PANEL_LABEL_SIZE = 44   # Size of the "A" / "B" panel letters
 
 
 def panel_to_figure(bounds, panel_bounds):
@@ -1502,15 +1502,15 @@ def plot_effective_sequences(ax):
             zorder=10,
         )
 
-    ax.set_xlabel("Sequence Divergence from Closest Natural", fontsize=32, labelpad=10, fontweight="normal", color=TEXT_COLOR)
-    ax.set_ylabel("Effective Number of Sequences", fontsize=32, labelpad=10, fontweight="normal", color=TEXT_COLOR)
+    ax.set_xlabel("Sequence Divergence from Closest Natural", fontsize=36, labelpad=10, fontweight="normal", color=TEXT_COLOR)
+    ax.set_ylabel("Effective Number of Sequences", fontsize=36, labelpad=10, fontweight="normal", color=TEXT_COLOR)
     ax.axvspan(0.2, 0.25, color="gray", alpha=0.15, zorder=0)
     ax.axvspan(0.40, 0.45, color="gray", alpha=0.15, zorder=0)
     ax.axvspan(0.60, 0.65, color="gray", alpha=0.15, zorder=0)
     ax.set_yscale("log")
 
     legend = ax.legend(
-        prop={"size": 28, "weight": "normal"},
+        prop={"size": 30, "weight": "normal"},
         frameon=False,
         fancybox=False,
         shadow=False,
@@ -1527,7 +1527,7 @@ def plot_effective_sequences(ax):
     ax.grid(True, alpha=0.25, linestyle="--", linewidth=1)
     ax.tick_params(axis="both", which="major", labelsize=16, direction="in", length=8, width=1.5)
     ax.tick_params(axis="both", which="minor", labelsize=14, direction="in", length=4, width=1)
-    style_tick_labels(ax, xtick_size=26, ytick_size=26)
+    style_tick_labels(ax, xtick_size=30, ytick_size=30)
 
     for spine in ax.spines.values():
         spine.set_linewidth(1.5)
@@ -1583,14 +1583,14 @@ for row_idx, mask_type in enumerate([1, 2]):
 
         if row_idx == 1:
             xlabel = r"$\log(P_{\mathrm{eaDCA}})$" if col_idx == 0 else r"$\log(P_{\mathrm{meDCA}})$"
-            ax.set_xlabel(xlabel, labelpad=8, fontsize=32, color=TEXT_COLOR)
+            ax.set_xlabel(xlabel, labelpad=8, fontsize=36, color=TEXT_COLOR)
 
         if col_idx == 0:
             ax.text(
                 -0.30,
                 0.5,
                 mask_titles[mask_type],
-                fontsize=32,
+                fontsize=36,
                 color=TEXT_COLOR,
                 rotation=90,
                 va="center",
@@ -1604,7 +1604,7 @@ for row_idx, mask_type in enumerate([1, 2]):
         ax.tick_params(axis="both", which="minor", labelsize=14, direction="in", length=4, width=1)
         if col_idx == 1:
             ax.tick_params(axis="y", which="both", left=False, labelleft=False)
-        style_tick_labels(ax, xtick_size=26, ytick_size=26)
+        style_tick_labels(ax, xtick_size=30, ytick_size=30)
         ax.grid(alpha=0.25, linestyle="--", linewidth=1)
         for spine in ax.spines.values():
             spine.set_linewidth(1.5)
@@ -1628,7 +1628,7 @@ left_legend = fig.legend(
     loc="upper center",
     ncol=2,
     columnspacing=3.0,
-    fontsize=28,
+    fontsize=30,
     bbox_to_anchor=(left_panel[0] + 0.61 * left_panel[2], 1.015),
     frameon=False,
     fancybox=False,
@@ -1652,7 +1652,7 @@ fig.text(
     0.005,
     bottom_margin + 0.5 * (top_margin - bottom_margin),
     "Density",
-    fontsize=32,
+    fontsize=36,
     color=TEXT_COLOR,
     rotation=90,
     va="center",

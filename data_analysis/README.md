@@ -10,8 +10,8 @@ Jupytext.
 
 ```
 scripts/        analysis scripts (see the table below) and paths.py
-data/           all input data, plus the zip archives it was unpacked from
-models/         DCA parameters under their development names
+data/           archives/ holds every input as a zip; the other folders are what
+                they unpack to, and are not tracked by git
 figures/        main/ · supplementary/ · intermediate/
 results/        numerical results (CSV, JSON, logs)
 ```
@@ -76,12 +76,17 @@ stored arrays (the two agree within ~1 nat).
 
 ## Data
 
-The `data/` folder is shipped unpacked; `data/archives/` keeps the zip archives it came
-from, and they can be restored with:
+Everything the scripts read is in `data/archives/`, which is what the repository
+tracks (through git-lfs). Unpack it once, from the `data/` folder:
 
 ```bash
 cd data && for f in archives/*.zip; do unzip -o "$f"; done
+mkdir -p cache && unzip -o archives/caches.zip -d cache
 ```
+
+`caches.zip` holds the cached energies and divergences of the large samples and the
+cached panel data of Fig. 4. With it, Fig. 2 and Fig. 4 can be regenerated **without**
+unpacking the 427 MB of `*_large_sample.zip`.
 
 | Path | Used by |
 | --- | --- |
@@ -91,19 +96,21 @@ cd data && for f in archives/*.zip; do unzip -o "$f"; done
 | `data/generated_samples/` (4 × 2M sequences) | `sequence_diversity.py`, and `entropy_decile_correction.py` on a cold cache |
 | `data/transformer/` | `transformer/gpt_inference.py` |
 | `data/cache/` | energies and divergences of the large samples; with this cache, the entropy scripts run without reading `data/generated_samples/` |
-| `models/` | `mutability.py`, `generalization_mutability_figure.py`, `mixing_time.py` |
+| `../models/tested_models/` | `mutability.py`, `generalization_mutability_figure.py`, `mixing_time.py`, `cross_model_scoring.py`, `entropy_decile_correction.py` |
 
 Two inputs come from the repository root instead of being duplicated here, since they
 are the released data of the project:
 
-- `../models/tested_models/{bmDCA,eaDCA,edDCA,meDCA}_params.{zip,dat}` — final models,
-  used by `cross_model_scoring.py` and `entropy_decile_correction.py`;
+- `../models/tested_models/{bmDCA,eaDCA,edDCA,meDCA}_params.{zip,dat}` — the four final
+  models, used by every script that needs model parameters;
 - `../data/experiment/*.csv` — in vivo relative-enrichment data, used by
   `cross_model_scoring.py`.
 
-The four files in `models/` are the same models under their development names:
-`Parameters_edDCA_density=0.125_high_entropy.dat` = meDCA, `Parameters_conv_dec_new.dat`
-= edDCA, `Parameters_EAALG0.8_new.dat` = eaDCA, `Parameters_conv_dense_new.dat` = bmDCA.
+This package used to carry a second copy of those four models under their development
+names (`Parameters_edDCA_density=0.125_high_entropy.dat` = meDCA,
+`Parameters_conv_dec_new.dat` = edDCA, `Parameters_EAALG0.8_new.dat` = eaDCA,
+`Parameters_conv_dense_new.dat` = bmDCA). The copies were byte-identical to the released
+files, so they were removed and `paths.MODEL_FILES` points at the released ones.
 
 ## Running
 
@@ -130,7 +137,10 @@ versions require:
 3. `display()` in `cross_model_scoring.py` falls back to `print()`;
 4. input and output paths come from `paths.py` instead of being hard-coded;
 5. `entropy_and_energy_landscape.py` plots the decile-corrected bin entropies in Fig. 2;
-6. in `leave_one_out_generalization.py` and `generalization_mutability_figure.py` the
+6. `generalization_mutability_figure.py` caches the arrays of its two panels in
+   `data/cache/fig04_panel_data.npz`, so a change of style redraws Fig. 4 in seconds
+   instead of recomputing the leave-one-out energies and the mutability;
+7. in `leave_one_out_generalization.py` and `generalization_mutability_figure.py` the
    excluded sequence is passed to `compute_energy` as a batch of one, `(1, L, q)`.
    The notebooks flattened it to `(1, L*q)`, which the installed version of `adabmDCA`
    rejects — as written, those two notebooks no longer run in the current environment.

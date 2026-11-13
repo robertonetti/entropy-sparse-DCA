@@ -699,7 +699,7 @@ for b in PLOT_BINS:
 # Identical rectangular axes and fixed grid margins keep all four plotting boxes aligned.
 # The colorbar occupies an inset outside the lower-right axes, without shrinking it.
 combined_fig, combined_axes = plt.subplots(
-    2, 2, figsize=(17, 12), layout=None,
+    2, 2, figsize=(19, 13.4), layout=None,
     subplot_kw={'box_aspect': 0.72},
     gridspec_kw={'left': 0.075, 'right': 0.90, 'bottom': 0.07, 'top': 0.94,
                  'wspace': 0.16, 'hspace': 0.58},
@@ -833,7 +833,7 @@ for b in PLOT_BINS:
 # Identical rectangular axes and fixed grid margins keep all four plotting boxes aligned.
 # The colorbar occupies an inset outside the lower-right axes, without shrinking it.
 mean_combined_fig, mean_combined_axes = plt.subplots(
-    2, 2, figsize=(17, 12), layout=None,
+    2, 2, figsize=(19, 13.4), layout=None,
     subplot_kw={'box_aspect': 0.72},
     gridspec_kw={'left': 0.075, 'right': 0.90, 'bottom': 0.07, 'top': 0.94,
                  'wspace': 0.16, 'hspace': 0.58},

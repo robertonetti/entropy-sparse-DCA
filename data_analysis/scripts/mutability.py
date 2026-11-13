@@ -11,7 +11,7 @@ Fig. 4b   figures/intermediate/mutability_violin_two_models.pdf
 Inputs
 ------
 data/natural_msa/   natural MSA and sequence weights
-models/             the four DCA models under their development names
+../models/tested_models/   the four released DCA models
 
 Runtime
 -------
@@ -60,7 +60,7 @@ from adabmDCA.io import load_params
 from adabmDCA.statmech import compute_energy
 
 print("All libraries imported successfully!")
-from paths import FIGURES_INTERMEDIATE, FIGURES_SUPPLEMENTARY, MODELS_DIR, NATURAL_MSA, NATURAL_WEIGHTS
+from paths import FIGURES_INTERMEDIATE, FIGURES_SUPPLEMENTARY, MODEL_FILES, NATURAL_MSA, NATURAL_WEIGHTS
 
 # %% [markdown]
 # ## Plot Style
@@ -125,10 +125,10 @@ data_path = NATURAL_MSA
 weights_path = NATURAL_WEIGHTS
 
 # Model paths - different DCA model variants trained on the same MSA
-HAmodel_path = MODELS_DIR / "Parameters_edDCA_density=0.125_high_entropy.dat"
-decmodel_path = MODELS_DIR / "Parameters_conv_dec_new.dat"
-eamodel_path = MODELS_DIR / "Parameters_EAALG0.8_new.dat"
-densemodel_path = MODELS_DIR / "Parameters_conv_dense_new.dat"
+HAmodel_path = MODEL_FILES["meDCA"]
+decmodel_path = MODEL_FILES["edDCA"]
+eamodel_path = MODEL_FILES["eaDCA"]
+densemodel_path = MODEL_FILES["bmDCA"]
 
 # Define amino acid tokens (20 amino acids + gap character)
 tokens = get_tokens("ACDEFGHIKLMNPQRSTVWY-")

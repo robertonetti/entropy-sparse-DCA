@@ -5,7 +5,7 @@
 !*/
 
 # Cartelle locali di lavoro, fuori dal repository
-/old_repo/
+/data_analysis_old_repo/
 /data_analysis_old/
 /sample_per_rama/
 /steering/
@@ -25,7 +25,12 @@
 !/data_analysis/results/**/*.csv
 !/data_analysis/results/**/*.json
 
-# Dati pesanti del package (~850 MB): per ora fuori dal repository.
-# Per caricarli su GitHub via git-lfs, commentare queste due righe.
-/data_analysis/data/
-/data_analysis/models/
+# Dati del package: su GitHub vanno gli archivi zip di data_analysis/data/archives/
+# (tracciati con git-lfs dalla regola *.zip qui sopra), non le cartelle scompattate
+# ne' le cache, che si rigenerano scompattando gli archivi.
+/data_analysis/data/natural_msa/
+/data_analysis/data/entropy_arrays/
+/data_analysis/data/leave_one_out/
+/data_analysis/data/generated_samples/
+/data_analysis/data/transformer/
+/data_analysis/data/cache/

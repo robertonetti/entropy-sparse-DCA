@@ -16,7 +16,6 @@ Layout
     data/transformer/        FASTA files used by the GPT scripts
     data/cache/              cached energies/divergences of the large samples
     data/archives/           zip archives of all of the above
-    models/                  DCA parameters under their development names
     figures/main/            figures of the main text
     figures/supplementary/   figures of the Supplemental Material
     figures/intermediate/    exploratory panels, not used in the paper
@@ -49,14 +48,16 @@ TRANSFORMER_DATA_DIR = DATA_DIR / "transformer"
 CACHE_DIR = DATA_DIR / "cache"
 ARCHIVES_DIR = DATA_DIR / "archives"
 
-# DCA parameters under their development names:
-#   meDCA = Parameters_edDCA_density=0.125_high_entropy, edDCA = Parameters_conv_dec_new,
-#   eaDCA = Parameters_EAALG0.8_new,                     bmDCA = Parameters_conv_dense_new
-MODELS_DIR = ROOT / "models"
-
 # Released parameters and in vivo measurements, shared with the rest of the repository
 RELEASED_MODELS_DIR = REPO_ROOT / "models" / "tested_models"
 EXPERIMENT_DIR = REPO_ROOT / "data" / "experiment"
+
+# The four final models, by name. These are the released parameter files: the copies
+# that used to live in this package under their development names
+# (Parameters_edDCA_density=0.125_high_entropy, Parameters_conv_dec_new,
+# Parameters_EAALG0.8_new, Parameters_conv_dense_new) were byte-identical to them.
+MODEL_FILES = {name: RELEASED_MODELS_DIR / f"{name}_params.dat"
+               for name in ("meDCA", "edDCA", "eaDCA", "bmDCA")}
 
 # ---------------------------------------------------------------------------
 # Outputs

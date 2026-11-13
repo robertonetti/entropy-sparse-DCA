@@ -9,7 +9,7 @@ Fig. S7   figures/supplementary/figS7_mixing_time.png
 Inputs
 ------
 data/natural_msa/   natural MSA and sequence weights
-models/             the four DCA models under their development names
+../models/tested_models/   the four released DCA models
 
 Outputs
 -------
@@ -26,7 +26,7 @@ import os
 from pathlib import Path
 
 # Redirect stdout and stderr to log file
-from paths import FIGURES_SUPPLEMENTARY, MODELS_DIR, NATURAL_MSA, NATURAL_WEIGHTS, RESULTS_DIR
+from paths import FIGURES_SUPPLEMENTARY, MODEL_FILES, NATURAL_MSA, NATURAL_WEIGHTS, RESULTS_DIR
 
 log_file = open(RESULTS_DIR / 'mixing_time_analysis.log', 'w')
 sys.stdout = log_file
@@ -75,10 +75,10 @@ try:
     weights_path = NATURAL_WEIGHTS
     
     # Model paths - different DCA model variants trained on the same MSA
-    HAmodel_path = str(MODELS_DIR / "Parameters_edDCA_density=0.125_high_entropy.dat")
-    decmodel_path = str(MODELS_DIR / "Parameters_conv_dec_new.dat")
-    eamodel_path = str(MODELS_DIR / "Parameters_EAALG0.8_new.dat")
-    densemodel_path = str(MODELS_DIR / "Parameters_conv_dense_new.dat")
+    HAmodel_path = str(MODEL_FILES["meDCA"])
+    decmodel_path = str(MODEL_FILES["edDCA"])
+    eamodel_path = str(MODEL_FILES["eaDCA"])
+    densemodel_path = str(MODEL_FILES["bmDCA"])
     
     # Define amino acid tokens (20 amino acids + gap character)
     tokens = get_tokens("ACDEFGHIKLMNPQRSTVWY-")
