@@ -356,7 +356,7 @@ fig.tight_layout()
 
 # Explicit layout knobs you can tune quickly.
 SUBPLOT_WSPACE = 0.150
-LEFT_XLABEL_Y_AXES = -0.3
+LEFT_XLABEL_Y_AXES = -0.46
 RIGHT_AX_WIDTH_SCALE = 1.00
 RIGHT_AX_HEIGHT_SCALE = 1.28
 RIGHT_AX_X_SHIFT = 0.00
@@ -376,12 +376,14 @@ pos2 = ax2.get_position()
 
 new_x0 = pos2.x0 + RIGHT_AX_X_SHIFT
 new_w = pos2.width * RIGHT_AX_WIDTH_SCALE
-new_h = pos2.height * RIGHT_AX_HEIGHT_SCALE
 
 if RIGHT_AX_MATCH_TOP_WITH_LEFT:
-    new_y1 = pos1.y1
-    new_y0 = new_y1 - new_h
+    # Same plotting box top and bottom as the left panel: the two panels then have
+    # identical height and baseline, and only their widths differ (1.3 : 1).
+    new_y0 = pos1.y0
+    new_h = pos1.height
 else:
+    new_h = pos2.height * RIGHT_AX_HEIGHT_SCALE
     new_y0 = pos2.y0 + RIGHT_AX_Y_SHIFT
 
 ax2.set_position([new_x0, new_y0, new_w, new_h])
@@ -391,11 +393,12 @@ ax1.xaxis.set_label_coords(0.5, LEFT_XLABEL_Y_AXES)
 
 # Panel letters, in the left margin and above each plotting box.
 fig.canvas.draw()
+letter_y = max(ax1.get_position().y1, ax2.get_position().y1) + 0.10
 for ax, letter in ((ax1, "A"), (ax2, "B")):
     box = ax.get_position()
     fig.text(
-        box.x0 - 0.045,
-        box.y1 + 0.085,
+        box.x0 - 0.042,
+        letter_y,
         letter,
         fontsize=40,
         fontweight="bold",
