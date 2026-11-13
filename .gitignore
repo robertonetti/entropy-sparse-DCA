@@ -10,9 +10,10 @@
 /sample_per_rama/
 /steering/
 
-# Permetti i file .zip
+# Permetti i file .zip, i notebook e i file di licenza
 !*.zip
 !*.ipynb
+!/LICENSE
 
 # Permetti i dati sperimentali
 !data/experiment/**
