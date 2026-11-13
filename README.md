@@ -1,4 +1,7 @@
 # entropy-sparse-DCA
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24204103.svg)](https://doi.org/10.5281/zenodo.24204103)
+
 Repository for the manuscript [Expanding functional protein sequence space using high entropy generative models](https://arxiv.org/abs/2605.03578).
 Authors: Roberto Netti, Emily Hinds, Francesco Calvanese, Rama Ranganathan, Martin Weigt, and Francesco Zamponi.
 It contains the trained models, datasets, and analysis code used to reproduce and inspect the results.
@@ -17,6 +20,17 @@ It contains the trained models, datasets, and analysis code used to reproduce an
 
 Large files are stored with [git-lfs](https://git-lfs.com); clone with `git lfs install`
 already done, or run `git lfs pull` afterwards.
+
+## Archived version
+
+The exact state of this repository that accompanies the manuscript, with all data files
+resolved, is archived on Zenodo: [10.5281/zenodo.24204103](https://doi.org/10.5281/zenodo.24204103).
+
+To cite it:
+
+> R. Netti, E. Hinds, F. Calvanese, R. Ranganathan, M. Weigt and F. Zamponi,
+> *Expanding functional protein sequence space using high entropy generative models —
+> code and data*, Zenodo (2026), https://doi.org/10.5281/zenodo.24204103
 
 ## License
 

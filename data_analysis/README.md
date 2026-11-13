@@ -6,6 +6,9 @@ the original notebooks, in the same order, so the outputs are identical. Cells a
 as `# %%` delimiters, so every script can still be run cell by cell in VSCode or
 Jupytext.
 
+This package is also archived, together with the rest of the repository and all of its
+data, on Zenodo: [10.5281/zenodo.24204103](https://doi.org/10.5281/zenodo.24204103).
+
 ## Layout
 
 ```
