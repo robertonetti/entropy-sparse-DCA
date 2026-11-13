@@ -1267,6 +1267,7 @@ def create_energy_distribution_grid(figsize=(12, 8)):
 
     # === Save figure ===
     plt.savefig(FIGURES_MAIN / "fig02a_energy_distributions_grid.pdf", bbox_inches='tight')
+    plt.savefig(FIGURES_MAIN / "fig02a_energy_distributions_grid.png", bbox_inches='tight', dpi=300)
     plt.show()
 
 
@@ -1353,6 +1354,7 @@ ax.set_ylim(entropies.min() - 2, entropies.max() + 3)
 
 plt.tight_layout()
 plt.savefig(FIGURES_MAIN / "fig05_entropy_vs_parameter_density.pdf")
+plt.savefig(FIGURES_MAIN / "fig05_entropy_vs_parameter_density.png", dpi=300)
 plt.show()
 
 # %% [markdown]
@@ -1425,6 +1427,7 @@ S_eaDCA_interval_corrected = decile_correction_results["eaDCA"]["S_bin_10"]
 
 import matplotlib.pyplot as plt
 from matplotlib.patches import Patch
+from matplotlib.ticker import MaxNLocator
 
 plt.rcParams.update({
     "text.usetex": True,
@@ -1434,6 +1437,7 @@ plt.rcParams.update({
 })
 
 TEXT_COLOR = "#2F2F2F"
+PANEL_LABEL_SIZE = 40   # Size of the "A" / "B" panel letters
 
 
 def panel_to_figure(bounds, panel_bounds):
@@ -1552,10 +1556,10 @@ left_axes = []
 shared_x_min = np.inf
 shared_x_max = -np.inf
 
-left_margin = 0.08
+left_margin = 0.22
 right_margin = 1
 bottom_margin = 0.08
-top_margin = 0.93
+top_margin = 0.86
 col_width = (right_margin - left_margin) / 2
 row_height = (top_margin - bottom_margin) / 2
 
@@ -1583,7 +1587,7 @@ for row_idx, mask_type in enumerate([1, 2]):
 
         if col_idx == 0:
             ax.text(
-                -0.2,
+                -0.30,
                 0.5,
                 mask_titles[mask_type],
                 fontsize=32,
@@ -1594,6 +1598,8 @@ for row_idx, mask_type in enumerate([1, 2]):
                 transform=ax.transAxes,
             )
 
+        ax.xaxis.set_major_locator(MaxNLocator(nbins=4))
+        ax.yaxis.set_major_locator(MaxNLocator(nbins=4))
         ax.tick_params(axis="both", which="major", labelsize=16, direction="in", length=8, width=1.5)
         ax.tick_params(axis="both", which="minor", labelsize=14, direction="in", length=4, width=1)
         if col_idx == 1:
@@ -1619,9 +1625,11 @@ legend_labels = ["eaDCA", "meDCA"]
 left_legend = fig.legend(
     legend_handles,
     legend_labels,
-    loc="upper right",
+    loc="upper center",
+    ncol=2,
+    columnspacing=3.0,
     fontsize=28,
-    bbox_to_anchor=(left_panel[0] + 0.4 * left_panel[2], bottom_margin + 1.035 * (top_margin - bottom_margin)),
+    bbox_to_anchor=(left_panel[0] + 0.61 * left_panel[2], 1.015),
     frameon=False,
     fancybox=False,
     shadow=False,
@@ -1639,5 +1647,22 @@ right_axes_bounds = [right_axes_left, bottom_margin, 0.965 - right_axes_left, to
 ax_right = fig.add_axes(right_axes_bounds)
 plot_effective_sequences(ax_right)
 
+# --- Shared y label of panel A, placed left of the divergence-bin labels ---
+fig.text(
+    0.005,
+    bottom_margin + 0.5 * (top_margin - bottom_margin),
+    "Density",
+    fontsize=32,
+    color=TEXT_COLOR,
+    rotation=90,
+    va="center",
+    ha="center",
+)
+
+# --- Panel letters ---
+fig.text(0.0, 0.98, "A", fontsize=PANEL_LABEL_SIZE, fontweight="bold", color=TEXT_COLOR, va="top", ha="left")
+fig.text(right_axes_left - 0.055, 0.98, "B", fontsize=PANEL_LABEL_SIZE, fontweight="bold", color=TEXT_COLOR, va="top", ha="left")
+
 plt.savefig(FIGURES_MAIN / "fig02_energy_distributions_and_effective_sequences.pdf", bbox_inches="tight", pad_inches=0.2)
+plt.savefig(FIGURES_MAIN / "fig02_energy_distributions_and_effective_sequences.png", bbox_inches="tight", pad_inches=0.2, dpi=300)
 plt.show()

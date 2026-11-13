@@ -121,11 +121,11 @@ plt.rcParams.update({
     'text.usetex': USE_TEX,
     'font.family': 'sans-serif',
     'font.weight': 'normal',
-    'font.size': 18,
+    'font.size': 20,
     'axes.labelweight': 'normal',
     'axes.titleweight': 'normal',
-    'axes.labelsize': 22,
-    'axes.titlesize': 24,
+    'axes.labelsize': 26,
+    'axes.titlesize': 28,
     'axes.linewidth': 1.5,
     'axes.edgecolor': '#2F2F2F',
     'text.color': 'black',
@@ -140,8 +140,8 @@ plt.rcParams.update({
     'ytick.major.size': 8,
     'xtick.major.width': 1.5,
     'ytick.major.width': 1.5,
-    'xtick.labelsize': 18,
-    'ytick.labelsize': 18,
+    'xtick.labelsize': 22,
+    'ytick.labelsize': 22,
     'legend.frameon': False,
     'axes.grid': False,
     'axes.axisbelow': True,
@@ -489,7 +489,7 @@ for panel, ax, b in zip(['A', 'B'], axes, PLOT_BINS):
     for gi in range(4):
         for si in range(4):
             value = matrix[gi, si]
-            ax.text(si, gi, f'{value:+.0f}', ha='center', va='center', fontsize=21,
+            ax.text(si, gi, f'{value:+.0f}', ha='center', va='center', fontsize=24,
                     color='white' if abs(value) > 18 else 'black')
 colorbar = fig.colorbar(im, ax=axes, shrink=0.82, pad=0.03, fraction=0.035)
 colorbar.set_label('Median energy penalty', labelpad=14)
@@ -702,7 +702,7 @@ combined_fig, combined_axes = plt.subplots(
     2, 2, figsize=(18, 13), layout=None,
     subplot_kw={'box_aspect': 0.78},
     gridspec_kw={'left': 0.12, 'right': 0.88, 'bottom': 0.10, 'top': 0.93,
-                 'wspace': 0.32, 'hspace': 0.36},
+                 'wspace': 0.32, 'hspace': 0.52},
 )
 
 for column, b in enumerate(PLOT_BINS):
@@ -723,15 +723,15 @@ for column, b in enumerate(PLOT_BINS):
         )
         histogram_ax.hist(
             values, bins=edges, density=True, histtype='step',
-            color=colors[generator], alpha=0.9, linewidth=2.5,
+            color='black', linewidth=1.5,
         )
     histogram_ax.axvline(0, color='black', linestyle='--', linewidth=1.5)
     histogram_ax.set_title(f'{bin_labels[b]} divergence', pad=16)
     histogram_ax.set_xlabel("Energy relative to scorer's\nown functional designs", labelpad=12)
     histogram_ax.set_ylabel('Density', labelpad=10)
     histogram_ax.grid(True, alpha=0.25, linestyle='--', linewidth=1)
-    histogram_ax.set_ylim(0, histogram_ax.get_ylim()[1] * 1.35)
-    histogram_ax.legend(fontsize=16, loc='upper right')
+    histogram_ax.set_ylim(0, histogram_ax.get_ylim()[1] * 1.55)
+    histogram_ax.legend(fontsize=19, loc='upper right')
 
     # Bottom row: preserve matrix values, color scale, annotations and model colors.
     heatmap_ax = combined_axes[1, column]
@@ -752,7 +752,7 @@ for column, b in enumerate(PLOT_BINS):
         for si in range(4):
             value = matrix[gi, si]
             heatmap_ax.text(
-                si, gi, f'{value:+.0f}', ha='center', va='center', fontsize=21,
+                si, gi, f'{value:+.0f}', ha='center', va='center', fontsize=24,
                 color='white' if abs(value) > 18 else 'black',
             )
 
@@ -766,12 +766,13 @@ combined_fig.canvas.draw()
 for row, letter in enumerate(['A', 'B']):
     row_box = combined_axes[row, 0].get_position()
     combined_fig.text(
-        row_box.x0 - 0.085, row_box.y1 + 0.025, letter,
-        fontsize=26, fontweight='bold', ha='left', va='bottom',
+        row_box.x0 - 0.085, row_box.y1 + 0.03, letter,
+        fontsize=34, fontweight='bold', ha='left', va='bottom',
     )
 
 combined_output = FIGURES_MAIN / 'fig03_cross_model_energy_penalty.pdf'
 combined_fig.savefig(combined_output, bbox_inches='tight')
+combined_fig.savefig(combined_output.with_suffix('.png'), bbox_inches='tight', dpi=300)
 plt.show()
 print(f'Saved combined figure: {combined_output}')
 
@@ -833,7 +834,7 @@ mean_combined_fig, mean_combined_axes = plt.subplots(
     2, 2, figsize=(18, 13), layout=None,
     subplot_kw={'box_aspect': 0.78},
     gridspec_kw={'left': 0.12, 'right': 0.88, 'bottom': 0.10, 'top': 0.93,
-                 'wspace': 0.32, 'hspace': 0.36},
+                 'wspace': 0.32, 'hspace': 0.52},
 )
 
 ASYMMETRY_MEAN = {}
@@ -856,15 +857,15 @@ for column, b in enumerate(PLOT_BINS):
         )
         histogram_ax.hist(
             values, bins=edges, density=True, histtype='step',
-            color=colors[generator], alpha=0.9, linewidth=2.5,
+            color='black', linewidth=1.5,
         )
     histogram_ax.axvline(0, color='black', linestyle='--', linewidth=1.5)
     histogram_ax.set_title(f'{bin_labels[b]} divergence', pad=16)
     histogram_ax.set_xlabel("Energy relative to mean of\nscorer's own functional designs", labelpad=12)
     histogram_ax.set_ylabel('Density', labelpad=10)
     histogram_ax.grid(True, alpha=0.25, linestyle='--', linewidth=1)
-    histogram_ax.set_ylim(0, histogram_ax.get_ylim()[1] * 1.35)
-    histogram_ax.legend(fontsize=16, loc='upper right')
+    histogram_ax.set_ylim(0, histogram_ax.get_ylim()[1] * 1.55)
+    histogram_ax.legend(fontsize=19, loc='upper right')
 
     # Bottom row: preserve matrix values, color scale, annotations and model colors.
     heatmap_ax = mean_combined_axes[1, column]
@@ -885,7 +886,7 @@ for column, b in enumerate(PLOT_BINS):
         for si in range(4):
             value = matrix[gi, si]
             heatmap_ax.text(
-                si, gi, f'{value:+.0f}', ha='center', va='center', fontsize=21,
+                si, gi, f'{value:+.0f}', ha='center', va='center', fontsize=24,
                 color='white' if abs(value) > 18 else 'black',
             )
 
@@ -899,8 +900,8 @@ mean_combined_fig.canvas.draw()
 for row, letter in enumerate(['A', 'B']):
     row_box = mean_combined_axes[row, 0].get_position()
     mean_combined_fig.text(
-        row_box.x0 - 0.085, row_box.y1 + 0.025, letter,
-        fontsize=26, fontweight='bold', ha='left', va='bottom',
+        row_box.x0 - 0.085, row_box.y1 + 0.03, letter,
+        fontsize=34, fontweight='bold', ha='left', va='bottom',
     )
 
 mean_combined_output = FIGURES_INTERMEDIATE / 'cross_model_energy_penalty_mean.pdf'

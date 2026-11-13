@@ -319,7 +319,18 @@ def plot_take1out_violin(ax, legend_fontsize=18):
         plt.Line2D([0], [0], marker="o", color="w", markerfacecolor=colors["meDCA"], markersize=10, markeredgecolor="black", label="Excluded seq (meDCA)"),
     ]
 
-    ax.legend(handles=legend_elements, fontsize=legend_fontsize, frameon=False) #, framealpha=0.9
+    # Two columns above the axes: the violins reach the top of the panel, so an
+    # in-axes legend would always sit on top of the data.
+    ax.legend(
+        handles=legend_elements,
+        fontsize=legend_fontsize,
+        frameon=False,
+        ncol=2,
+        loc="lower center",
+        bbox_to_anchor=(0.5, 1.01),
+        columnspacing=3.0,
+        handletextpad=0.8,
+    )
     ax.set_xticks(positions)
     ax.set_xticklabels(headers2, rotation=30, ha="right", fontsize=26)
     ax.tick_params(axis="y", labelsize=26)
@@ -378,6 +389,22 @@ ax2.set_position([new_x0, new_y0, new_w, new_h])
 # Explicit vertical position for left x-label.
 ax1.xaxis.set_label_coords(0.5, LEFT_XLABEL_Y_AXES)
 
+# Panel letters, in the left margin and above each plotting box.
+fig.canvas.draw()
+for ax, letter in ((ax1, "A"), (ax2, "B")):
+    box = ax.get_position()
+    fig.text(
+        box.x0 - 0.045,
+        box.y1 + 0.085,
+        letter,
+        fontsize=40,
+        fontweight="bold",
+        color="#2F2F2F",
+        ha="left",
+        va="bottom",
+    )
+
 fig.savefig(FIGURES_MAIN / "fig04_generalization_and_mutability.pdf", dpi=300, bbox_inches="tight")
+fig.savefig(FIGURES_MAIN / "fig04_generalization_and_mutability.png", dpi=300, bbox_inches="tight")
 print("Saved:", FIGURES_MAIN / "fig04_generalization_and_mutability.pdf")
 plt.show()
