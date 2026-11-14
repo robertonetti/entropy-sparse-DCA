@@ -1002,6 +1002,12 @@ def create_energy_distribution_panel(figsize=(32, 16)):
             ene_edDCA = globals()[f'ene_edDCA_{model}_{mask_type}'] if model != 'edDCA' else ene_self
             ene_meDCA = globals()[f'ene_meDCA_{model}_{mask_type}'] if model != 'meDCA' else ene_self
 
+            # The stored arrays hold log P = -E; plot the energy itself on the x axis.
+            ene_eaDCA = -np.asarray(ene_eaDCA)
+            ene_bmDCA = -np.asarray(ene_bmDCA)
+            ene_edDCA = -np.asarray(ene_edDCA)
+            ene_meDCA = -np.asarray(ene_meDCA)
+
             # --- Filled histograms for each model ---
             ax.hist(ene_eaDCA, bins=30, alpha=0.5, color=colors['eaDCA'],
                     density=True, label="eaDCA")
@@ -1020,13 +1026,13 @@ def create_energy_distribution_panel(figsize=(32, 16)):
             # --- X-axis labels (bottom row only) ---
             if row_idx == 2:
                 if col_idx == 0:
-                    ax.set_xlabel(r"$\log(P_{\mathrm{eaDCA}})$", fontsize=50, labelpad=8)
+                    ax.set_xlabel(r"$E_{\mathrm{eaDCA}}$", fontsize=50, labelpad=8)
                 elif col_idx == 1:
-                    ax.set_xlabel(r"$\log(P_{\mathrm{bmDCA}})$", fontsize=50, labelpad=8)
+                    ax.set_xlabel(r"$E_{\mathrm{bmDCA}}$", fontsize=50, labelpad=8)
                 elif col_idx == 2:
-                    ax.set_xlabel(r"$\log(P_{\mathrm{edDCA}})$", fontsize=50, labelpad=8)
+                    ax.set_xlabel(r"$E_{\mathrm{edDCA}}$", fontsize=50, labelpad=8)
                 elif col_idx == 3:
-                    ax.set_xlabel(r"$\log(P_{\mathrm{meDCA}})$", fontsize=50, labelpad=8)
+                    ax.set_xlabel(r"$E_{\mathrm{meDCA}}$", fontsize=50, labelpad=8)
 
             # --- Row labels (left column only) ---
             if col_idx == 0:
@@ -1048,12 +1054,14 @@ def create_energy_distribution_panel(figsize=(32, 16)):
         Patch(facecolor=colors[name], edgecolor='black', linewidth=1.5, alpha=0.5, label=name)
         for name in legend_order
     ]
-    fig.legend(legend_handles, legend_order, loc='center right', fontsize=40,
-               bbox_to_anchor=(0.21, 0.825), frameon=False, fancybox=False, shadow=False,
+    # Legend outside the grid, to the right of the panels, so it never overlaps the data.
+    fig.legend(legend_handles, legend_order, loc='center left', fontsize=40,
+               bbox_to_anchor=(0.87, 0.5), frameon=False, fancybox=False, shadow=False,
                framealpha=0.95, borderpad=1, handlelength=2.5, edgecolor="black")
 
     # === Save and show ===
     plt.savefig(FIGURES_INTERMEDIATE / "energy_distributions_fullpanel.pdf", bbox_inches='tight')
+    plt.savefig(FIGURES_INTERMEDIATE / "energy_distributions_fullpanel.png", bbox_inches='tight', dpi=300)
     plt.show()
 
 
@@ -1573,6 +1581,9 @@ for row_idx, mask_type in enumerate([1, 2]):
         ene_self = globals()[f"ene_{model}_{model}_{mask_type}"]
         ene_eaDCA = globals()[f"ene_eaDCA_{model}_{mask_type}"] if model != "eaDCA" else ene_self
         ene_meDCA = globals()[f"ene_meDCA_{model}_{mask_type}"] if model != "meDCA" else ene_self
+        # The stored arrays hold log P = -E; plot the energy itself on the x axis.
+        ene_eaDCA = -np.asarray(ene_eaDCA)
+        ene_meDCA = -np.asarray(ene_meDCA)
         shared_x_min = min(shared_x_min, np.min(ene_eaDCA), np.min(ene_meDCA))
         shared_x_max = max(shared_x_max, np.max(ene_eaDCA), np.max(ene_meDCA))
 
@@ -1582,7 +1593,7 @@ for row_idx, mask_type in enumerate([1, 2]):
         ax.hist(ene_meDCA, bins=30, histtype="step", color="black", density=True, linewidth=1)
 
         if row_idx == 1:
-            xlabel = r"$\log(P_{\mathrm{eaDCA}})$" if col_idx == 0 else r"$\log(P_{\mathrm{meDCA}})$"
+            xlabel = r"$E_{\mathrm{eaDCA}}$" if col_idx == 0 else r"$E_{\mathrm{meDCA}}$"
             ax.set_xlabel(xlabel, labelpad=8, fontsize=36, color=TEXT_COLOR)
 
         if col_idx == 0:
