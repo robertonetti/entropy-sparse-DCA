@@ -103,15 +103,17 @@ dtype = get_dtype("float32")     # Use 32-bit floating point precision
 # - filter_sequences: Remove sequences with too many gaps or unusual characters
 # ===============================================================================
 
+from paths import (FIGURES_INTERMEDIATE, FIGURES_SUPPLEMENTARY, FILTERED_MSA_DIR,
+                   NATURAL_MSA, TAKE_1OUT_MODELS_DIR)
+
 tokens = get_tokens("protein")  # Standard protein alphabet (20 amino acids + gap)
 headers, msa_data = import_from_fasta(
     str(NATURAL_MSA),
     tokens=tokens, 
-    filter_sequences=True, remove_duplicates=False  # Remove problematic sequences
+    filter_sequences=True,  # Remove problematic sequences
+    remove_duplicates=False,
 )
 
-from paths import (FIGURES_INTERMEDIATE, FIGURES_SUPPLEMENTARY, FILTERED_MSA_DIR,
-                   NATURAL_MSA, TAKE_1OUT_MODELS_DIR)
 
 # %% [markdown]
 # ## Configure Leave-One-Out Paths

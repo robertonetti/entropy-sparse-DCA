@@ -148,7 +148,7 @@ def load_array(name: str) -> np.ndarray:
 
 def load_onehot_fasta(path: Path) -> torch.Tensor:
     """Read an aligned FASTA file and return integer-encoded sequences (N, L)."""
-    _, sequences = import_from_fasta(str(path), tokens=tokens, filter_sequences=True)
+    _, sequences = import_from_fasta(str(path), tokens=tokens, filter_sequences=True, remove_duplicates=False)
     return torch.as_tensor(np.asarray(sequences), dtype=torch.int64)
 
 

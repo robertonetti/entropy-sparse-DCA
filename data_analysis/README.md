@@ -145,5 +145,10 @@ versions require:
    instead of recomputing the leave-one-out energies and the mutability;
 7. in `leave_one_out_generalization.py` and `generalization_mutability_figure.py` the
    excluded sequence is passed to `compute_energy` as a batch of one, `(1, L, q)`.
-   The notebooks flattened it to `(1, L*q)`, which the installed version of `adabmDCA`
-   rejects — as written, those two notebooks no longer run in the current environment.
+   The notebooks flattened it to `(1, L*q)`, which adabmDCA 0.7 accepts with the same
+   result but adabmDCA 0.5 rejects;
+8. every `import_from_fasta` call passes `remove_duplicates=False`. In adabmDCA 0.5 the
+   default is `True`, and the duplicates are removed with `np.unique`, which sorts the
+   sequences alphabetically: the excluded sequences are then paired with the wrong
+   leave-one-out models, and `weights.dat` no longer matches the natural MSA. The
+   figures were produced with adabmDCA 0.7, which keeps the order of the file.

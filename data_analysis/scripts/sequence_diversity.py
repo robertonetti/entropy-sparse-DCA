@@ -174,6 +174,7 @@ natural_headers, natural_encoded_raw = import_from_fasta(
     str(natural_fasta),
     tokens=tokens,
     filter_sequences=True,
+    remove_duplicates=False,
 )
 natural_encoded = as_numpy_int_array(natural_encoded_raw)
 natural_weights = np.loadtxt(natural_weights_path).astype(np.float64)

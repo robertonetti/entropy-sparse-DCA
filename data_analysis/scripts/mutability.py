@@ -153,7 +153,8 @@ print("Loading natural MSA...")
 headers, msa_enc_nat = import_from_fasta(
     data_path, 
     tokens=tokens, 
-    filter_sequences=True  # Remove sequences with invalid characters
+    filter_sequences=True,  # Remove sequences with invalid characters
+    remove_duplicates=False,
 )
 
 print(f"MSA shape: {msa_enc_nat.shape}")

@@ -193,6 +193,7 @@ else:
         str(NATURAL_MSA),
         tokens=overfit_tokens,
         filter_sequences=True,
+        remove_duplicates=False,
     )
 
     n = 10
