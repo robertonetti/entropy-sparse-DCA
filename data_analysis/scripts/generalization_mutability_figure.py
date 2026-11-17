@@ -162,7 +162,7 @@ else:
         "eaDCA": MODEL_FILES["eaDCA"],
     }
 
-    _, msa_enc_nat = import_from_fasta(str(mut_data_path), tokens=mut_tokens, filter_sequences=True)
+    _, msa_enc_nat = import_from_fasta(str(mut_data_path), tokens=mut_tokens, filter_sequences=True, remove_duplicates=False)
     msa_enc_nat = torch.tensor(msa_enc_nat, device=device_cpu, dtype=torch.long)
     msa_oh_nat = one_hot(msa_enc_nat, num_classes=len(mut_tokens))
 
@@ -215,10 +215,10 @@ else:
     models_hs_paths = [TAKE_1OUT_MODELS_DIR / f"model_{i}" / "params_density_0.125.dat" for i in range(1, n + 1)]
 
     msa_t1o = {
-        i: import_from_fasta(str(msa_paths[i]), tokens=overfit_tokens, filter_sequences=True)[1]
+        i: import_from_fasta(str(msa_paths[i]), tokens=overfit_tokens, filter_sequences=True, remove_duplicates=False)[1]
         for i in range(n)
     }
-    _, seqs = import_from_fasta(str(seq_1to_path), tokens=overfit_tokens, filter_sequences=True)
+    _, seqs = import_from_fasta(str(seq_1to_path), tokens=overfit_tokens, filter_sequences=True, remove_duplicates=False)
     seq_1to = {i: seqs[i] for i in range(n)}
 
     models_t1o = {

@@ -107,7 +107,7 @@ tokens = get_tokens("protein")  # Standard protein alphabet (20 amino acids + ga
 headers, msa_data = import_from_fasta(
     str(NATURAL_MSA),
     tokens=tokens, 
-    filter_sequences=True  # Remove problematic sequences
+    filter_sequences=True, remove_duplicates=False  # Remove problematic sequences
 )
 
 from paths import (FIGURES_INTERMEDIATE, FIGURES_SUPPLEMENTARY, FILTERED_MSA_DIR,
@@ -165,11 +165,11 @@ chains_hs_paths = [TAKE_1OUT_MODELS_DIR / f"model_{i}" / "chains_density_0.125.f
 # ===============================================================================
 
 # Load MSA data for each leave-one-out scenario (dictionary indexed 0-9)
-msa_t1o = {i: import_from_fasta(msa_paths[i], tokens=tokens, filter_sequences=True)[1] 
+msa_t1o = {i: import_from_fasta(msa_paths[i], tokens=tokens, filter_sequences=True, remove_duplicates=False)[1] 
            for i in range(n)}
 
 # Load the excluded sequences
-headers, seqs = import_from_fasta(seq_1to_path, tokens=tokens, filter_sequences=True)
+headers, seqs = import_from_fasta(seq_1to_path, tokens=tokens, filter_sequences=True, remove_duplicates=False)
 seq_1to = {i: seqs[i] for i in range(n)}  # Dictionary of excluded sequences
 
 # Load leave-one-out models (bmDCA - fully connected)
